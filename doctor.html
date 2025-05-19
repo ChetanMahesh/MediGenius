@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Recommender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: #fff;
+        }
+        .chatbox {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7); /* Add transparency */
+            border-radius: 10px;
+        }
+        .chatbox h2, .chatbox h1 {
+            margin-bottom: 20px;
+        }
+        .response {
+            margin-top: 20px;
+            text-align: left;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbox">
+        <h2><a class="navbar-brand" href="/" style="font-size:18px;color: #ffffff;">MediGenius</a></h2>
+        <h1>Doctor Recommender</h1>
+        <form id="chatForm">
+            <label for="symptom">Do you have this symptom?</label><br>
+            <input type="text" id="symptom" name="symptom" value="Loading symptoms..." readonly><br><br>
+            <button type="button" onclick="submitResponse('yes')">Yes</button>
+            <button type="button" onclick="submitResponse('no')">No</button>
+        </form>
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+            let symptomsIndex = 0;
+    let symptoms = [];
+    let responses = [];
+    let yesCount = 0; // Track the number of "yes" answers
+
+    // Fetch the list of symptoms from the backend
+    fetch('/get_symptom_list')
+    .then(response => response.json())
+    .then(data => {
+        symptoms = data.symptoms || []; // Default to an empty array if undefined
+        if (symptoms.length > 0) {
+            document.getElementById("symptom").value = symptoms[symptomsIndex];
+        } else {
+            document.getElementById("chatForm").innerHTML = "<p>No symptoms available for diagnosis.</p>";
+        }
+    })
+    .catch(error => {
+        document.getElementById("chatForm").innerHTML = "<p>Error loading symptoms. Please try again later.</p>";
+        console.error('Error fetching symptoms:', error);
+    });
+
+    // Handle user response
+    function submitResponse(response) {
+        const chatResponse = document.getElementById("response");
+
+        if (response === "yes") {
+            yesCount++;
+            responses.push(1);
+        } else {
+            responses.push(0);
+        }
+
+        chatResponse.innerHTML += `<p>Symptom: ${symptoms[symptomsIndex]} - You answered: ${response}</p>`;
+        symptomsIndex++;
+
+        // Stop if 5 "yes" responses have been collected or symptoms list ends
+        if (yesCount >= 5 || symptomsIndex >= symptoms.length) {
+            document.getElementById("chatForm").innerHTML = "<p>Processing your responses...</p>";
+
+            // Send responses to backend for prediction
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ responses: responses })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    chatResponse.innerHTML += `<p>Diagnosis: ${data.disease}</p>`;
+                    chatResponse.innerHTML += `<p>Recommended Doctor: <a href="${data.doctor_link}" target="_blank">${data.doctor_name}</a></p>`;
+                })
+                .catch(error => {
+                    chatResponse.innerHTML += `<p>Error processing your responses. Please try again later.</p>`;
+                    console.error('Error during prediction:', error);
+                });
+
+            return;
+        }
+
+        // Update the next symptom
+        if (symptomsIndex < symptoms.length) {
+            document.getElementById("symptom").value = symptoms[symptomsIndex];
+        }
+    }
+    </script>
+</body>
+</html>

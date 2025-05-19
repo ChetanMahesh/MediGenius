@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<style>
+    body {
+        background-image: url('../static/icons/background.jpg'); 
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+    }
+    .headstyle {
+        color: rgb(255, 255, 255);
+        font-variant: petite-caps;
+        background-color: rgb(0, 0, 0, 0.8);
+        margin-bottom: 0px
+    }
+
+    .divstyle {
+        border-radius: 10px 10px 10px 10px;
+        margin-left: 1px;
+        margin-right: 1px
+    }
+      .footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 75px;
+            background: linear-gradient(to top, #000000, rgb(0, 0, 0));
+        }
+
+        .footer-column {
+            flex: 1 1 25%;
+            margin: 10px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .footer-column p, .footer-column li {
+            margin: 5px 0;
+            color: #ffeeee;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .subscribe {
+            text-align: center;
+        }
+
+        .subscribe input {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 70%;
+        }
+
+        .subscribe button {
+            padding: 10px 20px;
+            background-color: #4c33ec;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .subscribe button:hover {
+            background-color: #4894d8;
+        }
+
+</style>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>MEDI-GENIUS</title>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MEDI-GENIUS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    <h1 class='text-center py-3'
+            style="font-variant: petite-caps;margin-bottom:0px">
+            <b><i style="color: #ffffff;">MEDI-GENIUS</i></b>
+            <br><i style="color: #ffffff;">AI-Powered Health Insights</i></br>
+    </h1>
+    <h3 class='text-center py-3' style="front-variant: petite-caps;margin-bottom:0px "><b><i style="color: #ffffff;">Disease Detection</i></b></h3>
+
+    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <h3 class='text-center py-3 headstyle' style="font-size: 28px;"><b>Covid Detection</b><a href="./covid"><img src="../static/icons/covid.jpg" class="d-block w-75 mx-auto" alt="Image 1"></a></h3>
+            </div>
+
+            <div class="carousel-item">
+                <h3 class='text-center py-3 headstyle' style="font-size: 28px;"><b>Brain Tumor Detection</b><a href="./braintumor"><img src="../static/icons/braintumor.png" class="d-block w-75 mx-auto" alt="Image 2"></a></h3>
+            </div>
+
+            <div class="carousel-item">
+                <h3 class='text-center py-3 headstyle' style="font-size: 28px;"><b>Alzheimer Detection</b><a href="./alzheimer"><img src="../static/icons/alzheimer.png" class="d-block w-75 mx-auto" alt="Image 3"></a></h3>
+            </div>
+            <div class="carousel-item">
+                <h3 class='text-center py-3 headstyle' style="font-size: 28px;"><b>Pneumonia Detection</b><a href="./pneumonia"><img src="../static/icons/pneumonia.png" class="d-block w-75 mx-auto" alt="Image 4"></a></h3>
+            </div>
+            <div class="carousel-item">
+                <h3 class='text-center py-3 headstyle' style="font-size: 28px;"><b>Heart Disease Detection</b><a href="./heartdisease"><img src="../static/icons/heartdisease.png" class="d-block w-75 mx-auto" alt="Image 5"></a></h3>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class='divstyle' style='margin:40px 20px 60px 20px'>
+        <div class="row py-3">
+            <div class="col md-3">
+                <h3 class='text-center py-3 headstyle' style="font-size: 25px;"><b>MediGenius Pharmacy</b></h3>
+                <a href="./drug"><img src="../static/icons/Drug.png" width="500" height="350" class="img-fluid mx-auto d-block"></a>
+            </div>
+            <div class="col md-3">
+                <h3 class='text-center py-3 headstyle' style="font-size: 25px;"><b>Doctor Recommender</b></h3>
+                <a href="./doctor"><img src="../static/icons/healthcure.png" width="500" height="350" class="img-fluid mx-auto d-block"></a>
+            </div>
+    </div>
+    <div class="col md-3">
+        <h3 class='text-center py-3 headstyle' style="font-size: 25px;"><b>Healthcare Chatbot</b></h3>
+        <a href="./chatbot"><img src="../static/icons/chatbot.jpg" width="500" height="350" class="img-fluid mx-auto d-block"></a>
+    </div>
+
+
+        <a><img src="../static/icons/logo.jpg" class="d-block w-25 mx-auto" alt="Image 0"></a>
+    <footer class='text-light bg-white position-relative '>
+        <div class="footer">
+            <div class="footer-column" style='font-size:18px;color: #000000;'>
+                <h3>MediGenius</h3>
+                <p>Bengaluru</p>
+                <p>123-456-7890</p>
+                <p>medigenius@gmail.com</p>
+            </div>
+            <div class="footer-column" style='font-size:18px;color: #000000;'>
+                <h3>Links</h3>
+                <ul>
+                    <li><a class="navbar-brand" href="/" style='font-size:18px;color: #ffffff;'>About Us</a></li>
+                    <li><a class="navbar-brand" href="/" style='font-size:18px;color: #ffffff;'>Disease Detection </a></li>
+                    <li><a class="navbar-brand" href="/doctor" style='font-size:18px;color: #ffffff;'>Doctors</a></li>
+                    <li><a class="navbar-brand" href="/chatbot" style='font-size:18px;color: #ffffff;'>Healthcare Chatbot</a></li>
+                </ul>
+            </div>
+            <div class="footer-column" style='font-size:18px;color: #000000;'>
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Blog</li>
+                    <li>FAQs</li>
+                    <li>Privacy Policy</li>
+                    <li>Terms and Conditions</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Chatbot</title>
+    <style>
+  body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('../static/icons/chatbot.jpg') no-repeat center center fixed;
+            background-size:cover;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7); /* Add transparency to the container */
+            border-radius: 10px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .heading {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .chat-box {
+            margin: 20px 0;
+            background-color: #f4f4f4;
+            color: #000;
+            border-radius: 10px;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .user {
+            background-color: #d1e7ff;
+            text-align: left;
+        }
+
+        .bot {
+            background-color: #e2e3e5;
+            text-align: left;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4f46e5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+        <h1>Healthcare Chatbot</h1>
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message here..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+
+            if (userInput.value.trim() === '') {
+                return;
+            }
+
+            // Append user message to the chat
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('chat-message', 'user');
+            userMessage.innerText = userInput.value;
+            chatBox.appendChild(userMessage);
+
+            // Scroll chat box to the bottom
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Store user input and clear the input field
+            const userMessageText = userInput.value;
+            userInput.value = '';
+
+            try {
+                // Send user input to the backend
+                const response = await fetch('http://127.0.0.1:5000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessageText }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch chatbot response');
+                }
+
+                const data = await response.json();
+
+                // Append bot response to the chat
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('chat-message', 'bot');
+                botMessage.innerText = data.response;
+                chatBox.appendChild(botMessage);
+            } catch (error) {
+                // Handle errors
+                const errorMessage = document.createElement('div');
+                errorMessage.classList.add('chat-message', 'bot');
+                errorMessage.innerText = 'Error: Unable to fetch response. Please try again later.';
+                chatBox.appendChild(errorMessage);
+            } finally {
+                // Scroll chat box to the bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
